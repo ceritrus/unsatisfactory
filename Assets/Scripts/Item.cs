@@ -30,6 +30,8 @@ public class Item : MonoBehaviour
     private GameObject highlight;
     private GameObject outerHighlight;
     private Animation anim;
+    public int conveyorPoint = 0;
+    [SerializeField] public float scale = 1;
     private void Start()
     {
         if (gameObject.GetComponent<Animation>() == null)
@@ -83,6 +85,7 @@ public class Item : MonoBehaviour
                 gameObject.GetComponent<Collider>().enabled = true;
                 break;
             case State.OnConveyor:
+                GameManager.conveyor.MoveItem(this);
                 gameObject.GetComponent<Collider>().enabled = true;
                 break;
             case State.OnDesk:

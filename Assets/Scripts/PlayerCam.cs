@@ -72,7 +72,10 @@ public class PlayerCam : MonoBehaviour
                         }
                         break;
                     case Item.Type.DropZone:
-                        lastItem.GetComponent<DropZone>().AddChild(hand.GetComponent<Item>(), hit);
+                        if (lastItem.name == "Desk")
+                            lastItem.GetComponent<Desk>().AddChild(hand.GetComponent<Item>(), hit);
+                        else if (lastItem.name == "Conveyor")
+                            lastItem.GetComponent<Conveyor>().AddChild(hand.GetComponent<Item>(), hit);
                         hand = null;
                         break;
                     case Item.Type.Usable:

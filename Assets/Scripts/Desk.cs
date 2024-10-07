@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropZone : Item
+public class Desk : Item
 {
+
 
     [Header("Drop Zone")]
     [SerializeField] private Vector2 size = new Vector2(1, 1);
     [SerializeField] private Vector3 offset = new Vector3(0, 0, 0);
     [SerializeField] private bool drawGizmos = true;
+
+    private void Start()
+    {
+        GameManager.desk = this;
+    }
 
     private void OnDrawGizmos()
     {
@@ -31,14 +37,6 @@ public class DropZone : Item
         );
         item.transform.rotation = Quaternion.identity;
 
-        switch (name)
-        {
-            case "Desk":
-                item.state = State.OnDesk;
-                break;
-            case "Conveyor":
-                item.state = State.OnConveyor;
-                break;
-        }
+        item.state = State.OnDesk;
     }
 }
