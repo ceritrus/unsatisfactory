@@ -32,7 +32,7 @@ public class Desk : Item
         item.transform.localScale = Vector3.one * scale;
         item.transform.position = new Vector3(
             Mathf.Clamp(hit.point.x, transform.position.x + offset.x - size.x / 2, transform.position.z + offset.x + size.x / 2),
-            offset.y + item.transform.localScale.y + .05f,
+            offset.y + .4f + item.conveyorOffset.y,
             Mathf.Clamp(hit.point.z, transform.position.z + offset.z - size.y / 2, transform.position.z + offset.z + size.y / 2)
         );
         item.transform.rotation = Quaternion.identity;

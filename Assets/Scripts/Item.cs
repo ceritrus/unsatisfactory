@@ -31,7 +31,11 @@ public class Item : MonoBehaviour
     private GameObject outerHighlight;
     private Animation anim;
     public int conveyorPoint = 0;
-    [SerializeField] public float scale = 1;
+    [SerializeField] public Vector3 scale = new Vector3(1, 1, 1);
+    [SerializeField] public Vector3 conveyorOffset = new Vector3(0, 0, 0);
+
+    private Transform shadow;
+
     private void Start()
     {
         if (gameObject.GetComponent<Animation>() == null)
@@ -42,6 +46,8 @@ public class Item : MonoBehaviour
         {
             anim = gameObject.GetComponent<Animation>();
         }
+
+        shadow = transform.GetChild(0);
 
         if (type != Type.DropZone && type != Type.None)
         {
@@ -68,6 +74,8 @@ public class Item : MonoBehaviour
             material.SetFloat("_Size", 1.2f);
             outerHighlight.AddComponent<MeshRenderer>().material = material;
             outerHighlight.SetActive(false);
+
+
         }
     }
 
@@ -76,20 +84,25 @@ public class Item : MonoBehaviour
         switch (state)
         {
             case State.Idle:
+                shadow.gameObject.SetActive(false);
                 gameObject.GetComponent<Collider>().enabled = true;
                 break;
             case State.Carried:
+                shadow.gameObject.SetActive(false);
                 gameObject.GetComponent<Collider>().enabled = false;
                 break;
             case State.Used:
+                shadow.gameObject.SetActive(false);
                 gameObject.GetComponent<Collider>().enabled = true;
                 break;
             case State.OnConveyor:
                 GameManager.conveyor.MoveItem(this);
                 gameObject.GetComponent<Collider>().enabled = true;
+                shadow.gameObject.SetActive(true);
                 break;
             case State.OnDesk:
                 gameObject.GetComponent<Collider>().enabled = true;
+                shadow.gameObject.SetActive(true);
                 break;
         }
     }
